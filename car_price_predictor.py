@@ -81,14 +81,13 @@ except Exception as e:
 
 st.title("🚗 Simple Car Price Predictor (dengan Model Regresi Linear)")
 st.write("Masukkan detail mobil di bawah ini untuk mendapatkan estimasi harga.")
-st.markdown(f"<p style='font-size: small; color: grey;'><i>Model dilatih menggunakan data dari '{CSV_FILE_PATH}'.</i></p>", unsafe_allow_html=True)
 st.write("---")
 
 # --- Widget Input untuk Fitur Mobil ---
 st.header("Masukkan Detail Mobil:")
 
 mileage = st.slider(
-    " Odometer : Mileage (in kilometers)",
+    " ⏲ Odometer : Mileage (in kilometers)",
     min_value=0,
     max_value=300000,
     value=50000,
@@ -112,7 +111,7 @@ if "Other" not in brand_options_from_data:
     brand_options_from_data.append("Other")
 
 brand = st.selectbox(
-    "Brand Mobil",
+    " 🚘 Brand Mobil",
     brand_options_from_data,
     help="Pilih merek pabrikan mobil."
 )
@@ -145,24 +144,3 @@ if st.button("Prediksi Harga Mobil"):
         Akurasi prediksi sangat bergantung pada kualitas, kuantitas, dan relevansi data di file tersebut.
         Jika data di CSV adalah data sintetis atau tidak mencerminkan pasar riil, prediksi mungkin tidak akurat.
         """)
-
-# --- Instruksi Cara Menjalankan (di sidebar) ---
-st.sidebar.header("Cara Menjalankan Aplikasi Ini:")
-st.sidebar.markdown(
-    f"""
-    1.  **Pastikan Library Terinstal:** Anda memerlukan `streamlit`, `pandas`, `numpy`, dan `scikit-learn`.
-        ```bash
-        pip install streamlit pandas numpy scikit-learn
-        ```
-    2.  **Siapkan File CSV:** Buat file CSV dengan nama **`{CSV_FILE_PATH}`** (yaitu `daftar_mobil.csv`) 
-        di folder yang **sama** dengan skrip Python ini. Pastikan file CSV tersebut memiliki kolom:
-        `Brand`, `Model` (opsional, tidak digunakan model), `Year`, `Mileage`, `Engine_Size`, `Price`.
-        Anda bisa menggunakan data yang sudah saya berikan sebelumnya untuk `daftar_mobil.csv`.
-    3.  **Simpan kode:** Simpan kode di atas ke dalam file bernama `car_price_predictor_from_csv.py`.
-    4.  **Jalankan aplikasi:** Buka terminal atau command prompt, navigasikan ke direktori tempat Anda menyimpan file, lalu jalankan:
-        ```bash
-        streamlit run car_price_predictor_from_csv.py
-        ```
-    5.  **Akses di browser:** Browser web Anda akan otomatis membuka tab baru dengan aplikasi Streamlit.
-    """
-)
