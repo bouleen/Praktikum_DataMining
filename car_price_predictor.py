@@ -11,7 +11,7 @@ import os # Untuk memeriksa keberadaan file
 # Bagian ini akan mencari dan memuat file CSV Anda.
 # Pastikan file CSV ('daftar_mobil.csv') berada di folder yang sama dengan skrip Python ini.
 
-# --- Perubahan di Sini: Menggunakan nama file daftar_mobil.csv ---
+#Gunakan nama file daftar_mobil.csv ---
 CSV_FILE_PATH = 'daftar_mobil.csv' # Nama file CSV Anda
 
 # Periksa apakah file CSV ada
@@ -81,6 +81,12 @@ except Exception as e:
 
 st.title("🚗 Simple Second Car Price Predictor (dengan Model Regresi Linear)")
 st.write("Masukkan detail mobil second di bawah ini untuk mendapatkan estimasi harga.")
+st.write("---")
+
+# --- Tampilkan Tabel Data di Sini ---
+st.header("Data-data mobil second")
+t.write("Berikut adalah data lengkap mobil second yang sering dicari:")
+st.dataframe(df_train)
 st.write("---")
 
 # --- Widget Input untuk Fitur Mobil ---
