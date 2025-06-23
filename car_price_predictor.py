@@ -79,8 +79,8 @@ except Exception as e:
 
 # --- APLIKASI STREAMLIT DIMULAI DI SINI ---
 
-st.title("🚗 Simple Car Price Predictor (dengan Model Regresi Linear)")
-st.write("Masukkan detail mobil di bawah ini untuk mendapatkan estimasi harga.")
+st.title("🚗 Simple Second Car Price Predictor (dengan Model Regresi Linear)")
+st.write("Masukkan detail mobil second di bawah ini untuk mendapatkan estimasi harga.")
 st.write("---")
 
 # --- Widget Input untuk Fitur Mobil ---
