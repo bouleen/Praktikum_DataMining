@@ -7,10 +7,6 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 import os # Untuk memeriksa keberadaan file
 
-# --- 0. Muat Data dari CSV dan Latih Model ---
-# Bagian ini akan mencari dan memuat file CSV Anda.
-# Pastikan file CSV ('daftar_mobil.csv') berada di folder yang sama dengan skrip Python ini.
-
 #Gunakan nama file daftar_mobil.csv ---
 CSV_FILE_PATH = 'daftar_mobil.csv' # Nama file CSV Anda
 
