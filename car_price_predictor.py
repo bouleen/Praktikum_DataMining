@@ -97,7 +97,7 @@ mileage = st.slider(
 
 year_manufacture = st.slider(
     " 📅 Tahun Pembuatan",
-    min_value=1990,
+    min_value=2015,
     max_value=2025,
     value=2018,
     step=1,
