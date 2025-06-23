@@ -81,7 +81,7 @@ st.write("---")
 
 # --- Tampilkan Tabel Data di Sini ---
 st.header("Data-data mobil second")
-t.write("Berikut adalah data lengkap mobil second yang sering dicari:")
+st.write("Berikut adalah data lengkap mobil second yang sering dicari:")
 st.dataframe(df_train)
 st.write("---")
 
