@@ -142,7 +142,5 @@ if st.button("Prediksi Harga Mobil"):
     st.success(f"**Estimasi Harga Mobil (berdasarkan Model Regresi Linear):**")
     st.markdown(f"## Rp {predicted_price:,.0f}") # Format dengan koma untuk keterbacaan
     st.info(f"""
-        **Penting:** Model ini dilatih menggunakan data dari file '{CSV_FILE_PATH}'. 
-        Akurasi prediksi sangat bergantung pada kualitas, kuantitas, dan relevansi data di file tersebut.
-        Jika data di CSV adalah data sintetis atau tidak mencerminkan pasar riil, prediksi mungkin tidak akurat.
+        **Penting:** Prediksi harga ini hanya didasarkan pada model regresi linear. Oleh karena itu, hasil prediksi tidak memperhitungkan dinamika atau fluktuasi harga pasar real-time yang selalu berubah, sehingga mungkin tidak mencerminkan kondisi pasar sesungguhnya secara akurat.
         """)
