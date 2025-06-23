@@ -1,8 +1,8 @@
 # Praktikum_DataMining
 
-# Cara Menjalankan Aplikasi Prediksi Harga Mobil Ini
+# Cara Menjalankan Aplikasi Prediksi Harga Mobil Second Ini
 
-Aplikasi ini adalah prediktor harga mobil sederhana yang dibangun menggunakan Streamlit dan model Regresi Linear. Data pelatihan dimuat dari file CSV.
+Aplikasi ini adalah prediktor harga mobil Second sederhana yang dibangun menggunakan Streamlit dan model Regresi Linear. Data pelatihan dimuat dari file CSV.
 
 ## Persiapan Awal
 
