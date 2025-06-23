@@ -9,15 +9,13 @@ Aplikasi ini adalah prediktor harga mobil sederhana yang dibangun menggunakan St
 Pastikan Anda memiliki hal-hal berikut:
 
 1.  **Python Terinstal:** Pastikan Anda memiliki Python 3.7 atau lebih tinggi terinstal di sistem Anda.
-2.  **File Aplikasi Python:** Simpan kode aplikasi Python Anda (yang telah kita kerjakan sebelumnya) ke dalam file bernama `car_price_predictor_from_csv.py`.
+2.  **File Aplikasi Python:** Simpan kode aplikasi Python Anda (yang telah kita kerjakan sebelumnya) ke dalam file bernama `car_price_predictor.py`.
 3.  **File Data CSV:** Pastikan Anda memiliki file data CSV dengan nama `daftar_mobil.csv` di folder yang **sama** dengan skrip Python Anda.
 
 ### Struktur File CSV (`daftar_mobil.csv`)
 
 File CSV Anda **harus** memiliki kolom-kolom berikut:
 `Brand`, `Model` (opsional, tidak digunakan model), `Year`, `Mileage`, `Engine_Size`, `Price`.
-
-**Penting:** Pastikan nilai pada kolom `Engine_Size` di file CSV Anda dalam satuan **Cubic Centimeter (cc)**. Jika data asli Anda dalam Liter, Anda harus mengonversinya ke cc terlebih dahulu (kalikan nilai Liter dengan 1000).
 
 Contoh isi `daftar_mobil.csv`:
 ```csv
