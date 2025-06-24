@@ -76,7 +76,7 @@ except Exception as e:
 # --- APLIKASI STREAMLIT DIMULAI DI SINI ---
 
 st.title("🚗 Simple Second Car Price Predictor (dengan Model Regresi Linear)")
-st.write("Masukkan detail mobil second di bawah ini untuk mendapatkan estimasi harga.")
+st.write("Lihatlah sampel data detail mobil second di bawah ini dan masukkan detail mobil dibawah tabel untuk mendapatkan estimasi harga.")
 st.write("---")
 
 # --- Tampilkan Tabel Data di Sini ---
