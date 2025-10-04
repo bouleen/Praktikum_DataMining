@@ -90,8 +90,8 @@ st.header("Masukkan Detail Mobil:")
 
 mileage = st.slider(
     " ⏲ Odometer : Mileage (in kilometers)",
-    min_value=0,
-    max_value=300000,
+    min_value=300000,
+    max_value=0,
     value=50000,
     step=1000,
     help="Jarak total yang telah ditempuh mobil."
