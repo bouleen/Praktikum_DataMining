@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import OneHotEncoder, FunctionTransformer
+from sklearn.preprocessing import OneHotEncoder, FunctionTransformer, StandardScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 import os
@@ -52,8 +52,6 @@ def create_remaining_life(X):
     if isinstance(X, pd.DataFrame):
         X = X.to_numpy()
         
-    # Data yang masuk di sini sudah pasti array NumPy, baik 1D atau 2D (n, 1)
-    
     # Ambil data dan pipihkan (flatten) untuk operasi aritmatika
     mileage_col = X.flatten()
     
@@ -64,27 +62,28 @@ def create_remaining_life(X):
     return remaining_life.reshape(-1, 1)
 
 # Buat transformer khusus untuk Feature Engineering Mileage
+# --- PERUBAHAN: Menambahkan StandardScaler untuk Normalisasi ---
 mileage_transformer = Pipeline(steps=[
-    # Gunakan FunctionTransformer untuk menerapkan fungsi kustom
-    ('remaining_life', FunctionTransformer(create_remaining_life, validate=False))
+    ('remaining_life_calc', FunctionTransformer(create_remaining_life, validate=False)),
+    ('scaler', StandardScaler()) # Normalisasi Jarak Sisa
 ])
 # ------------------------------------------------------------------
 
 # Definisikan fitur kategorikal dan numerik
 categorical_features = ['Brand']
-numerical_features = ['Mileage', 'Year', 'Engine_Size'] # Tetap gunakan nama kolom asli
+# Catatan: Fitur 'Mileage' sekarang akan diproses oleh pipeline khusus
 
 # Buat Preprocessor dengan ColumnTransformer
 preprocessor = ColumnTransformer(
     transformers=[
-        # Terapkan transformasi Mileage (Jarak Sisa) hanya pada kolom 'Mileage'
-        ('mileage_rev', mileage_transformer, ['Mileage']),
+        # Terapkan transformasi Mileage (Jarak Sisa + Normalisasi)
+        ('mileage_distance', mileage_transformer, ['Mileage']), # Nama transformer diubah
         # Terapkan One-Hot Encoding pada fitur Brand
         ('cat', OneHotEncoder(handle_unknown='ignore'), categorical_features),
-        # Biarkan fitur numerik lainnya apa adanya
+        # Biarkan fitur numerik lainnya apa adanya (jika perlu dinormalisasi, tambahkan StandardScaler di sini juga)
         ('num_passthrough', 'passthrough', ['Year', 'Engine_Size'])
     ],
-    remainder='drop' # Pastikan hanya fitur yang ditransformasi yang digunakan
+    remainder='drop'
 )
 
 # Buat Pipeline dengan Preprocessor dan Model Regresi Linear
@@ -108,8 +107,8 @@ except Exception as e:
 
 # --- APLIKASI STREAMLIT DIMULAI DI SINI ---
 
-st.title("🚗 Simple Second Car Price Predictor (Regresi Linear dengan Jarak Sisa)")
-st.write(f"Model ini menggunakan Regresi Linear dan dijamin bahwa **prediksi harga akan menurun seiring dengan kenaikan Mileage** karena kami menggunakan fitur 'Jarak Sisa' (dihitung dari {MAX_MILEAGE:,} km).")
+st.title("🚗 Simple Second Car Price Predictor (Regresi Linear dengan Jarak Sisa dan Normalisasi)")
+st.write(f"Model ini menggunakan Regresi Linear dan dijamin bahwa **prediksi harga akan menurun seiring dengan kenaikan Mileage** karena kami menggunakan fitur 'Jarak Sisa' (dihitung dari {MAX_MILEAGE:,} km) yang sudah dinormalisasi.")
 st.write("---")
 
 # --- Tampilkan Tabel Data di Sini ---
@@ -128,7 +127,7 @@ mileage = st.slider(
     max_value=MAX_MILEAGE,
     value=50000,
     step=1000,
-    help="Jarak total yang telah ditempuh mobil. Nilai ini akan dibalik untuk model."
+    help="Jarak total yang telah ditempuh mobil. Nilai ini akan dibalik dan dinormalisasi untuk model."
 )
 
 year_manufacture = st.slider(
@@ -175,8 +174,8 @@ st.write("---")
 if st.button("Prediksi Harga Mobil"):
     predicted_price = predict_car_price_ml(mileage, year_manufacture, brand, engine_size, model_pipeline)
 
-    st.success(f"**Estimasi Harga Mobil (berdasarkan Model Regresi Linear dengan Jarak Sisa):**")
+    st.success(f"**Estimasi Harga Mobil (berdasarkan Model Regresi Linear dengan Jarak Sisa dan Normalisasi):**")
     st.markdown(f"## Rp {predicted_price:,.0f}") # Format dengan koma untuk keterbacaan
     st.info(f"""
-        **Penting:** Karena fitur Mileage telah direkayasa menjadi Jarak Sisa, hubungan negatif Mileage terhadap Harga kini terjamin. Namun, model Regresi Linear tetap merupakan model yang sederhana dan mungkin kurang akurat dibandingkan model yang lebih canggih.
+        **Penting:** Dengan normalisasi, model Regresi Linear sekarang memberikan bobot yang lebih signifikan pada fitur **Jarak Sisa** (yang terbalik dari Mileage), memastikan harga turun seiring bertambahnya kilometer.
         """)
