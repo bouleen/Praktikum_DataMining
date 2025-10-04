@@ -48,16 +48,17 @@ y = df_train['Price']
 
 # --- FUNGSI FEATURE ENGINEERING UNTUK MEMBALIK NILAI MILEAGE ---
 def create_remaining_life(X):
-    # Mengambil kolom pertama (Mileage) dari input (X)
-    mileage_col = X[:, 0].reshape(-1, 1)
+    # Pastikan X diubah ke array 1D jika merupakan array 2D dengan 1 kolom
+    if X.ndim == 2 and X.shape[1] == 1:
+        mileage_col = X.flatten()
+    else:
+        mileage_col = X.flatten() # Ini adalah array 1D dari 'Mileage'
     
     # Menghitung Jarak Sisa: MAX_MILEAGE - Mileage
     remaining_life = MAX_MILEAGE - mileage_col
     
-    # Mengganti nilai Mileage asli dengan nilai Jarak Sisa yang sudah dibalik
-    X[:, 0] = remaining_life.flatten()
-    
-    return X
+    # Mengembalikan data dalam bentuk 2D yang diharapkan oleh ColumnTransformer
+    return remaining_life.reshape(-1, 1)
 
 # Buat transformer khusus untuk Feature Engineering Mileage
 mileage_transformer = Pipeline(steps=[
@@ -97,6 +98,7 @@ if len(X) < 2:
 try:
     model_pipeline.fit(X, y)
 except Exception as e:
+    # Error handling di sini akan menangkap error jika terjadi masalah lain saat pelatihan
     st.error(f"Error saat melatih model regresi linear: {e}. Mohon periksa data Anda.")
     st.stop()
 
