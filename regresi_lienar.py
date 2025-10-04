@@ -48,11 +48,14 @@ y = df_train['Price']
 
 # --- FUNGSI FEATURE ENGINEERING UNTUK MEMBALIK NILAI MILEAGE ---
 def create_remaining_life(X):
-    # Pastikan X diubah ke array 1D jika merupakan array 2D dengan 1 kolom
-    if X.ndim == 2 and X.shape[1] == 1:
-        mileage_col = X.flatten()
-    else:
-        mileage_col = X.flatten() # Ini adalah array 1D dari 'Mileage'
+    # --- PERBAIKAN: Pastikan input X adalah NumPy array ---
+    if isinstance(X, pd.DataFrame):
+        X = X.to_numpy()
+        
+    # Data yang masuk di sini sudah pasti array NumPy, baik 1D atau 2D (n, 1)
+    
+    # Ambil data dan pipihkan (flatten) untuk operasi aritmatika
+    mileage_col = X.flatten()
     
     # Menghitung Jarak Sisa: MAX_MILEAGE - Mileage
     remaining_life = MAX_MILEAGE - mileage_col
